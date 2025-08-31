@@ -7,7 +7,7 @@ This project implements a GridWorld environment for reinforcement learning exper
 - **GridWorld Environment**: A customizable grid environment with configurable size, obstacles, and rewards
 - **Reinforcement Learning Algorithms**: Implementation of Q-learning and SARSA algorithms
 - **Stochastic Environment**: Support for stochastic action outcomes (adding noise to the environment)
-- **Visualization Tools**: Multiple visualization options from simple text-based to graphical displays
+- **Visualization Tools**: Multiple visualization options from simple text-based to animated graphical displays
 - **Parameter Testing**: Scripts for comparing different hyperparameters and grid sizes
 
 ## Project Structure
@@ -15,6 +15,8 @@ This project implements a GridWorld environment for reinforcement learning exper
 ```
 Reinforcement_Learning_GridWorld/
 ├── requirements.txt        # Project dependencies
+├── setup.py               # Package installation configuration
+├── run.py                 # Launcher script for easy execution
 ├── src/                    # Source code
 │   ├── environments/       # Environment implementations
 │   │   ├── __init__.py
@@ -27,10 +29,12 @@ Reinforcement_Learning_GridWorld/
 │   └── visualizers/        # Visualization tools
 │       ├── __init__.py
 │       ├── simple_visualizer.py     # Text-based visualization
-│       └── advanced_visualizer.py   # Graphical visualization with path tracking
+│       ├── advanced_visualizer.py   # Graphical visualization with path tracking
+│       └── animated_visualizer.py   # Animated visualization that creates GIFs
 └── scripts/                # Runner scripts and experiments
     ├── run_visualizer.py            # Run simple visualization
     ├── run_advanced_visualizer.py   # Run advanced visualization
+    ├── run_animated_visualizer.py   # Run animated visualization
     ├── grid_size_test.py            # Compare different grid sizes
     └── hyperparameter_comparison.py # Compare different hyperparameters
 ```
@@ -54,24 +58,37 @@ source .venv/bin/activate  # On Windows, use: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+4. Install the package in development mode (recommended):
+```bash
+pip install -e .
+```
+
 ## Quick Start
 
-To run a simple visualization of the learned policy:
+The easiest way to run any of the visualizers is using the launcher script:
 
 ```bash
-python scripts/run_visualizer.py
+# Simple text-based visualization
+./run.py simple
+
+# Advanced graphical visualization
+./run.py advanced
+
+# Animated visualization (creates GIF)
+./run.py animated
+
+# Grid size comparison
+./run.py grid_test
+
+# Hyperparameter comparison
+./run.py hyperparams
 ```
 
-For a more advanced visualization with cycle detection and graphical output:
+You can also pass additional arguments to customize the visualizers:
 
 ```bash
-python scripts/run_advanced_visualizer.py
-```
-
-To experiment with a stochastic environment (where actions don't always result in the intended movement):
-
-```bash
-python scripts/run_advanced_visualizer.py --noise 0.2
+# Use a larger grid with more noise (stochasticity)
+./run.py advanced --grid_size 7 --noise 0.2
 ```
 
 ## Command-line Arguments
@@ -100,6 +117,7 @@ All visualizer scripts support the following arguments:
 
 - **SimpleGridWorldVisualizer**: Text-based visualization of learned policies
 - **GridWorldVisualizer**: Advanced graphical visualization with path tracking and cycle detection
+- **AnimatedGridWorldVisualizer**: Creates animated GIFs of the agent's learning process
 
 ## Examples
 
@@ -141,6 +159,27 @@ env.set_positions()
 # Create and train agent
 agent = QLearningAgent(env)
 agent.train(episodes=500)
+```
+
+### Creating an Animated Visualization
+
+```python
+from src.environments.gridworld import GridWorld
+from src.visualizers.animated_visualizer import AnimatedGridWorldVisualizer
+
+# Create a visualizer with obstacles
+visualizer = AnimatedGridWorldVisualizer(
+    grid_size=5, 
+    obstacles=[(1, 1), (1, 2), (3, 2), (3, 3)],
+    noise=0.0  # Change to 0.2 for stochastic environment
+)
+
+# Train the agent
+visualizer.train_agent(episodes=500)
+
+# Create an animated visualization
+visualizer.animate_policy(max_steps=20)
+# This will create gridworld_visualization.gif
 ```
 
 ## License
