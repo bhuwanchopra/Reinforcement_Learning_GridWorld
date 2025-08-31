@@ -83,7 +83,11 @@ class AnimatedGridWorldVisualizer:
             self.img.set_data(grid)
         
         # Add policy arrows
-        self.ax.texts = [self.text]  # Remove previous arrows
+        # Clear existing texts except the status text
+        for txt in self.ax.texts:
+            if txt != self.text:
+                txt.remove()
+        
         for r in range(self.env.rows):
             for c in range(self.env.cols):
                 # Skip agent, goal, fail positions and obstacles
