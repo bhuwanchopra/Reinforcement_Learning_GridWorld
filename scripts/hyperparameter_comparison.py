@@ -100,7 +100,14 @@ def plot_comparison_results(results, num_episodes):
     plt.grid(True)
     
     plt.tight_layout()
-    plt.savefig('hyperparameter_comparison.png')
+    
+    # Create data directory if it doesn't exist
+    import os
+    data_dir = 'data'
+    if not os.path.exists(data_dir):
+        os.makedirs(data_dir)
+    
+    plt.savefig(os.path.join(data_dir, 'hyperparameter_comparison.png'))
     plt.close()
 
 def demonstrate_learned_policy(experiment_name, grid_size=5, num_episodes=500):

@@ -98,7 +98,14 @@ def plot_grid_size_comparison(results, num_episodes):
     plt.grid(True)
     
     plt.tight_layout()
-    plt.savefig('grid_size_comparison.png')
+    
+    # Create data directory if it doesn't exist
+    import os
+    data_dir = 'data'
+    if not os.path.exists(data_dir):
+        os.makedirs(data_dir)
+    
+    plt.savefig(os.path.join(data_dir, 'grid_size_comparison.png'))
     plt.close()
     
     # Create a bar chart for convergence episodes
@@ -112,7 +119,7 @@ def plot_grid_size_comparison(results, num_episodes):
     plt.xlabel('Grid Size')
     plt.ylabel('Episodes to Convergence')
     plt.grid(True, axis='y')
-    plt.savefig('grid_size_convergence.png')
+    plt.savefig(os.path.join(data_dir, 'grid_size_convergence.png'))
     plt.close()
 
 if __name__ == "__main__":

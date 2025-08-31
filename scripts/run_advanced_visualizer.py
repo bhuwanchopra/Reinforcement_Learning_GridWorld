@@ -30,7 +30,7 @@ def main():
     reward, steps = visualizer.visualize_policy(max_steps=args.max_steps, delay=args.delay)
     
     print("\nVisualization complete!")
-    print(f"Check the policy_visualization.png file to see the agent's path.")
+    print(f"Check the data/policy_visualization.png file to see the agent's path.")
 
 if __name__ == "__main__":
     main()

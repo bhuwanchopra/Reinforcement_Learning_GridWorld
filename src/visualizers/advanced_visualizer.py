@@ -55,13 +55,19 @@ class GridWorldVisualizer:
         self.agent.train(episodes=episodes, max_steps=self.env.rows*4, decay_epsilon=True)
         print("Training complete!")
     
-    def show_policy_grid(self, save_path='policy_visualization.png'):
+    def show_policy_grid(self, save_path='data/policy_visualization.png'):
         """
         Show the policy grid with colored cells.
         
         Args:
             save_path: Path to save the visualization image
         """
+        # Create data directory if it doesn't exist
+        import os
+        data_dir = os.path.dirname(save_path)
+        if not os.path.exists(data_dir):
+            os.makedirs(data_dir)
+            
         # Get policy
         policy_grid = self._get_policy_grid()
         
@@ -179,7 +185,7 @@ class GridWorldVisualizer:
         
         return policy_grid
     
-    def visualize_policy(self, max_steps=20, delay=0.5, save_path='policy_visualization.png'):
+    def visualize_policy(self, max_steps=20, delay=0.5, save_path='data/policy_visualization.png'):
         """
         Visualize the agent following the learned policy step by step.
         Includes better handling of obstacles and avoiding cycles.

@@ -162,6 +162,12 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Project specific
+# Ignore visualization outputs in the data directory
+data/
+*.png
+*.gif
+
 # pytype static type analyzer
 .pytype/
 

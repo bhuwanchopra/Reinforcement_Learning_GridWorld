@@ -186,9 +186,16 @@ class AnimatedGridWorldVisualizer:
         ani = animation.FuncAnimation(self.fig, update, frames=len(self.frames), 
                                      interval=200, blit=True)
         
-        # Save animation
-        ani.save('gridworld_visualization.gif', writer='pillow', fps=5)
-        print("Animation saved as 'gridworld_visualization.gif'")
+        # Create data directory if it doesn't exist
+        import os
+        data_dir = 'data'
+        if not os.path.exists(data_dir):
+            os.makedirs(data_dir)
+        
+        # Save animation to data folder
+        output_path = os.path.join(data_dir, 'gridworld_visualization.gif')
+        ani.save(output_path, writer='pillow', fps=5)
+        print(f"Animation saved as '{output_path}'")
         
         # Display the animation in the notebook
         plt.show()

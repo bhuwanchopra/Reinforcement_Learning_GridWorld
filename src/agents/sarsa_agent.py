@@ -145,13 +145,19 @@ class SARSAAgent:
                 avg_steps = np.mean(self.steps_per_episode[-100:])
                 print(f"Episode {episode + 1}/{episodes}, Avg Reward: {avg_reward:.2f}, Avg Steps: {avg_steps:.2f}, Epsilon: {self.epsilon:.2f}")
     
-    def visualize_learning(self, save_path='sarsa_learning_progress.png'):
+    def visualize_learning(self, save_path='data/sarsa_learning_progress.png'):
         """
         Visualize the learning progress.
         
         Args:
             save_path: Path to save the learning progress plot
         """
+        # Create data directory if it doesn't exist
+        import os
+        data_dir = os.path.dirname(save_path)
+        if not os.path.exists(data_dir):
+            os.makedirs(data_dir)
+            
         plt.figure(figsize=(12, 5))
         
         # Plot rewards

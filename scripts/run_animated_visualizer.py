@@ -29,7 +29,7 @@ def main():
     visualizer.animate_policy(max_steps=args.max_steps)
     
     print("\nVisualization complete!")
-    print("Check the gridworld_visualization.gif file to see the animated visualization.")
+    print("Check the data/gridworld_visualization.gif file to see the animated visualization.")
 
 if __name__ == "__main__":
     main()
